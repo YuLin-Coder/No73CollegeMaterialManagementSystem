@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--解决idea thymeleaf 表达式模板报红波浪线-->
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 引入公用部分 -->
+    <script th:replace="common/head::static"></script>
+    <!-- 样式 -->
+    <link th:href="@{/sys/setting/css/setting.css}" rel="stylesheet" type="text/css"/>
+
+    <!-- 百度富文本 -->
+    <script type="text/javascript" th:src="@{/common/ueditor/ueditor.config.js}"></script>
+    <script type="text/javascript" th:src="@{/common/ueditor/ueditor.all.js}"></script>
+</head>
+<body>
+<div class="layui-row layui-col-space15">
+    <!-- 操作表单 -->
+    <div class="layui-col-md12">
+        <div class="layui-card">
+            <div class="layui-card-header">系统设置（注：修改后需要刷新页面才生效）</div>
+            <div class="layui-card-body">
+                <form id="sysForm" class="layui-form layui-form-pane">
+                    <div class="layui-form-item  layui-form-text">
+                        <label class="layui-form-label">系统名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="sysName" th:value="${sys.sysName}" autocomplete="off"
+                                   placeholder="系统名称"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item  layui-form-text">
+                        <label class="layui-form-label">系统logo图片</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="sysLogo" th:value="${sys.sysLogo}" autocomplete="off"
+                                   placeholder="系统logo图片"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item  layui-form-text">
+                        <label class="layui-form-label">系统公告</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="sysNoticeText" th:value="${sys.sysNoticeText}" style="display: none;">
+                            <script type="text/plain" id="sysNoticeTextEdit" style="width:100%;height:500px;"></script>
+                        </div>
+                    </div>
+                    <div class="layui-form-item  layui-form-text">
+                        <label class="layui-form-label">系统底部信息</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="sysBottomText" th:value="${sys.sysBottomText}" autocomplete="off"
+                                   placeholder="系统底部信息"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item  layui-form-text">
+                        <label class="layui-form-label">是否开启API加密</label>
+                        <div class="layui-input-block">
+                            <input id="sysApiEncrypt" th:value="${sys.sysApiEncrypt}"  hidden="hidden"/>
+                            <input type="radio" name="sysApiEncrypt" value="Y" title="是">
+                            <input type="radio" name="sysApiEncrypt" value="N" title="否">
+                        </div>
+                    </div>
+                    <div class="layui-form-item  layui-form-text">
+                        <label class="layui-form-label">系统颜色</label>
+                        <div class="layui-input-block">
+                            <div class="layui-input-inline" style="width: 120px;">
+                                <input type="text" value="" placeholder="请选择颜色" class="layui-input"  th:value="${sys.sysColor}" name="sysColor" id="sysColor">
+                            </div>
+                            <div class="layui-inline" style="left: -11px;">
+                                <div id="test-form-sysColor"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item  layui-form-text">
+                        <label class="layui-form-label">用户管理：初始、重置密码</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="userInitPassword" th:value="${sys.userInitPassword}" autocomplete="off"
+                                   placeholder="用户管理：初始、重置密码"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item  layui-form-text">
+                        <label class="layui-form-label">更新时间</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="updateTime" th:value="${#dates.format(sys.updateTime, 'yyyy-MM-dd HH:mm:ss')}" autocomplete="off"
+                                   placeholder="更新时间"
+                                   class="layui-input" readonly="readonly" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <a class="layui-btn" onclick="sysFormSave()">修改</a>
+                        </div>
+                    </div>
+                    <!-- 隐藏域 -->
+                    <input type="text" name="id"  th:value="${sys.id}" hidden="hidden"/>
+                    <input type="text" name="createTime"  th:value="${#dates.format(sys.createTime, 'yyyy-MM-dd HH:mm:ss')}" hidden="hidden"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!-- js -->
+<script th:src="@{/sys/setting/js/setting.js}"></script>
+</html>

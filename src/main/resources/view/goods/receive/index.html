@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--解决idea thymeleaf 表达式模板报红波浪线-->
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 引入公用部分 -->
+    <script th:replace="common/head::static"></script>
+    <!-- 样式 -->
+    <link th:href="@{/goods/css/common.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="layui-row layui-col-space15">
+    <!-- 树 -->
+    <div class="layui-col-md12">
+        <div class="layui-card">
+            <div class="layui-card-header">物资列表</div>
+            <div class="layui-card-body">
+                <!-- 表格主体 -->
+                <table class="layui-hide" id="instructorTable" lay-filter="test"></table>
+                <!-- 模板 -->
+                <script type="text/html" id="instructorTableToolbarDemo">
+                    <div class="layui-inline">
+                        <label>物资类型：</label>
+                        <div class="layui-input-inline">
+                            <select name="type" id="type" lay-verify="required">
+                                <option value="">请选择类型</option>
+                                <option value="固定资产">固定资产</option>
+                                <option value="消耗物品">消耗物品</option>
+                                <option value="福利物品">福利物品</option>
+                            </select>
+                        </div>
+
+                        <label>物资名称：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="goodsName" id="goodsName" autocomplete="off" class="layui-input">
+                        </div>
+
+                    </div>
+                    <button class="layui-btn layui-btn-sm" lay-event="query">查询<i class="layui-icon layui-icon-search"></i></button>
+                </script>
+                <script type="text/html" id="instructorTableBarDemo">
+                    <a class="layui-btn layui-btn-xs" lay-event="receive">领取<i class="layui-icon layui-icon-edit"></i></a>
+                </script>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<!-- js -->
+<script th:src="@{/goods/js/receive.js}"></script>
+</html>

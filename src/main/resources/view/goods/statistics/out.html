@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--解决idea thymeleaf 表达式模板报红波浪线-->
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 引入公用部分 -->
+    <script th:replace="common/head::static"></script>
+    <!-- 样式 -->
+    <link th:href="@{/goods/css/common.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div  class="layui-row layui-col-space15">
+    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+    <div id="main" style="width: 100%;height:600px;">
+
+    </div>
+</div>
+</body>
+<!-- js -->
+<script>
+    $(function () {
+        getData4();
+    });
+    function  getData4() {
+        $.ajax({
+            type: 'POST',
+            dataType: 'text',
+            url:  '/statistics/outPage',
+            data: {},
+            cache: false,
+            async: true,
+            success: function (data) {
+                var data = eval('(' + data + ')');
+                var data1 = new Array();
+                for(var i=0; i < data.data.mapName.length; i++){
+                    data1[i] = {value:data.data.mapValue[i],name:data.data.mapName[i]}
+                }
+                //alert(JSON.stringify(data));
+                var myChart = echarts.init(document.getElementById('main'));
+
+                // 指定图表的配置项和数据
+                option = {
+                    title : {
+                        text: '物资分类出库可视化饼状图',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        left: 'left',
+                        data: data1
+                    },
+                    series : [
+                        {
+                            name: '物资分类出库可视化',
+                            type: 'pie',
+                            radius : '55%',
+                            center: ['50%', '60%'],
+                            data:data1,
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            }
+        });
+    }
+</script>
+</html>

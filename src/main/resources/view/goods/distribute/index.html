@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!--解决idea thymeleaf 表达式模板报红波浪线-->
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 引入公用部分 -->
+    <script th:replace="common/head::static"></script>
+    <!-- 样式 -->
+    <link th:href="@{/goods/css/common.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="layui-row layui-col-space15">
+    <!-- 树 -->
+    <div class="layui-col-md12">
+        <div class="layui-card">
+            <div class="layui-card-header">发放列表</div>
+            <div class="layui-card-body">
+                <!-- 表格主体 -->
+                <table class="layui-hide" id="instructorTable" lay-filter="test"></table>
+                <!-- 模板 -->
+                <script type="text/html" id="instructorTableToolbarDemo">
+                    <div class="layui-inline">
+                        <button class="layui-btn layui-btn-sm" lay-event="addData">新增<i class="layui-icon layui-icon-add-1"></i></button>
+                        <label>物资类型：</label>
+                        <div class="layui-input-inline">
+                            <select name="type" id="type" lay-verify="required">
+                                <option value="">请选择类型</option>
+                                <option value="固定资产">固定资产</option>
+                                <option value="消耗物品">消耗物品</option>
+                                <option value="福利物品">福利物品</option>
+                            </select>
+                        </div>
+
+                        <label>物资名称：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="goodsName" id="goodsName" autocomplete="off" class="layui-input">
+                        </div>
+
+                        <label>院部：</label>
+                        <div class="layui-input-inline">
+                            <select name="dept" id="dept" lay-verify="required">
+                                <option value="">请选择院部</option>
+                                <option value="软件学院">软件学院</option>
+                                <option value="财经学院">财经学院</option>
+                                <option value="土木学院">土木学院</option>
+                                <option value="机电学院">机电学院</option>
+                            </select>
+                        </div>
+
+                        <label>老师：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="teacher" id="teacher" autocomplete="off" class="layui-input">
+                        </div>
+
+
+                    </div>
+                    <button class="layui-btn layui-btn-sm" lay-event="query">查询<i class="layui-icon layui-icon-search"></i></button>
+                </script>
+                <script type="text/html" id="instructorTableBarDemo">
+                    <a class="layui-btn layui-btn-xs" lay-event="ck">出库<i class="layui-icon layui-icon-edit"></i></a>
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-col-md12" id="saveInstructor" style="display: none">
+        <div class="layui-card">
+            <div class="layui-card-header">添加</div>
+            <div class="layui-card-body">
+                <form id="instructorForm" class="layui-form layui-form-pane">
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">物资类型</label>
+                            <div class="layui-input-block">
+                                <select name="type" id="type" lay-verify="required">
+                                    <option value="">请选择类型</option>
+                                    <option value="固定资产">固定资产</option>
+                                    <option value="消耗物品">消耗物品</option>
+                                    <option value="福利物品">福利物品</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">物资名称</label>
+                        <div class="layui-input-block"  style="width: 300px">
+                            <input type="text" name="goodsName" id="goodsName"  autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">数量</label>
+                        <div class="layui-input-block"  style="width: 300px">
+                            <input type="text" name="count" id="count"  autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">院部</label>
+                            <div class="layui-input-block">
+                                <select name="dept" id="dept" lay-verify="required" lay-filter="dept">
+                                    <option value="">请选择院部</option>
+                                    <option value="软件学院">软件学院</option>
+                                    <option value="财经学院">财经学院</option>
+                                    <option value="土木学院">土木学院</option>
+                                    <option value="机电学院">机电学院</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">老师</label>
+                            <div class="layui-input-block">
+                                <select name="teacherId" id="teacherId" lay-verify="required">
+                                    <option value="">请选择老师</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 隐藏域 -->
+                    <input type="text" name="id" hidden="hidden"/>
+                </form>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <a class="layui-btn" onclick="saveInstructor()">保存</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<!-- js -->
+<script th:src="@{/goods/js/distribute.js}">
+</script>
+</html>

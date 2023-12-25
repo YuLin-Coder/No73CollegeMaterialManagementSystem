@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--解决idea thymeleaf 表达式模板报红波浪线-->
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 引入公用部分 -->
+    <script th:replace="common/head::static"></script>
+    <!-- 样式 -->
+    <link th:href="@{/goods/css/common.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="layui-row layui-col-space15">
+    <!-- 树 -->
+    <div class="layui-col-md12">
+        <div class="layui-card">
+            <div class="layui-card-header">教师列表</div>
+            <div class="layui-card-body">
+                <!-- 表格主体 -->
+                <table class="layui-hide" id="instructorTable" lay-filter="test"></table>
+                <!-- 模板 -->
+                <script type="text/html" id="instructorTableToolbarDemo">
+                    <div class="layui-inline">
+                        <button class="layui-btn layui-btn-sm" lay-event="addData">新增<i class="layui-icon layui-icon-add-1"></i></button>
+                        <label>工号：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="loginName" id="loginName" autocomplete="off" class="layui-input">
+                        </div>
+
+                    </div>
+                    <button class="layui-btn layui-btn-sm" lay-event="query">查询<i class="layui-icon layui-icon-search"></i></button>
+                </script>
+                <script type="text/html" id="instructorTableBarDemo">
+                    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑<i class="layui-icon layui-icon-edit"></i></a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除<i class="layui-icon layui-icon-close"></i></a>
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-col-md12" id="saveInstructor" style="display: none">
+        <div class="layui-card">
+            <div class="layui-card-header">添加</div>
+            <div class="layui-card-body">
+                <form id="instructorForm" class="layui-form layui-form-pane">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">姓名</label>
+                        <div class="layui-input-block"  style="width: 300px">
+                            <input type="text" name="userName"  autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">工号</label>
+                        <div class="layui-input-block"  style="width: 300px">
+                            <input type="text" name="loginName"  autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">院部</label>
+                            <div class="layui-input-block">
+                                <select name="dept" id="dept" lay-verify="required">
+                                    <option value="">请选择院部</option>
+                                    <option value="软件学院">软件学院</option>
+                                    <option value="财经学院">财经学院</option>
+                                    <option value="土木学院">土木学院</option>
+                                    <option value="机电学院">机电学院</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 隐藏域 -->
+                    <input type="text" name="id" hidden="hidden"/>
+                </form>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <a class="layui-btn" onclick="saveInstructor()">保存</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<!-- js -->
+<script th:src="@{/goods/js/teacher.js}"></script>
+</html>
